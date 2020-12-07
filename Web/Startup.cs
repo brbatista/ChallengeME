@@ -1,18 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Persistencia.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Web.Config;
 
 namespace Web
 {
@@ -31,6 +25,7 @@ namespace Web
             services.AddDbContext<ApiDbContext>(options => options.UseInMemoryDatabase(databaseName: "ME"));
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
+            services.ResolveDependencies();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -10,6 +10,6 @@ namespace Negocio.Models
         {
             Itens = new List<Item>();
         }
-        public IEnumerable<Item> Itens { get; set; }
+        public List<Item> Itens { get; set; }
     }
 }

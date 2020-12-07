@@ -14,8 +14,8 @@ namespace Negocio.Services
     {
         public readonly IPedidoRepository PedidoRepository;
         public readonly IItemRepository ItemRepository;
-        internal readonly IMapper Mapper;
-        internal PedidoService(IPedidoRepository pedidoRepository,
+        public readonly IMapper Mapper;
+        public PedidoService(IPedidoRepository pedidoRepository,
             IItemRepository itemRepository,
             IGerenciadorMensagens gerenciador,
             IMapper mapper) : base(gerenciador)
@@ -39,7 +39,7 @@ namespace Negocio.Services
 
         public async Task<PedidoDto> ObterPorId(int id)
         {
-            var pedido = await PedidoRepository.Buscar(p => p.Id == id);
+            var pedido = await PedidoRepository.ObterPorId(id);
             var pedidoDto = Mapper.Map<PedidoDto>(pedido);
 
             return pedidoDto;

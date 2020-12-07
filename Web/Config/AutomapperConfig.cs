@@ -11,10 +11,10 @@ namespace Negocio
     {
         public AutomapperConfig()
         {
+            CreateMap<Item, ItemDto>().ReverseMap();
             CreateMap<Pedido, PedidoDto>()
                 .ForMember(dest => dest.Pedido, opt => opt.MapFrom(src => src.Id))
                 .ReverseMap();
-            CreateMap<Item, ItemDto>().ReverseMap();
             CreateMap<StatusPedido, StatusPedidoDto>().ReverseMap();
         }
 

@@ -17,7 +17,7 @@ namespace Web.Controllers
     public class PedidoController : MainController
     {
         private readonly IPedidoService PedidoService;
-        protected PedidoController(IGerenciadorMensagens gerenciadorMensagens, IPedidoService pedidoService) : base(gerenciadorMensagens)
+        public PedidoController(IGerenciadorMensagens gerenciadorMensagens, IPedidoService pedidoService) : base(gerenciadorMensagens)
         {
             PedidoService = pedidoService;
         }

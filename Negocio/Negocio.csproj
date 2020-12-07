@@ -5,8 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Config\**" />
     <Compile Remove="Models\Validations\**" />
+    <EmbeddedResource Remove="Config\**" />
     <EmbeddedResource Remove="Models\Validations\**" />
+    <None Remove="Config\**" />
     <None Remove="Models\Validations\**" />
   </ItemGroup>
 
