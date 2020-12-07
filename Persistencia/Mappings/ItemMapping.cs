@@ -20,11 +20,7 @@ namespace Persistencia.Mappings
 
             builder.Property(c => c.Qtd)
                    .IsRequired()
-                   .HasColumnType("decimal(19,4)");
-
-            builder.Property(c => c.Qtd)
-                   .IsRequired()
-                   .HasColumnType("decimal(19,4)");
+                   .HasColumnType("int");
 
             builder.ToTable("Item");
         }

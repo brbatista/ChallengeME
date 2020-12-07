@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Negocio.Contratos;
+using Negocio.DTOs;
 using Persistencia.Context;
 using System;
 using System.Collections.Generic;
@@ -12,32 +14,70 @@ namespace Web.Controllers
 {
     [Route("api/pedido")]
     [ApiController]
-    public class PedidoController : ControllerBase
+    public class PedidoController : MainController
     {
+        private readonly IPedidoService PedidoService;
+        protected PedidoController(IGerenciadorMensagens gerenciadorMensagens, IPedidoService pedidoService) : base(gerenciadorMensagens)
+        {
+            PedidoService = pedidoService;
+        }
 
-        // GET api/<Pedido>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<PedidoDto>> ObterPorId(int id)
         {
-            return "value";
+            var pedidoDto = await PedidoService.ObterPorId(id);
+
+            if (pedidoDto == null) return NotFound();
+
+            return Ok(pedidoDto);
         }
 
-        // POST api/<Pedido>
+        [HttpPost("status")]
+        public async Task<ActionResult<StatusResponseDto>> ObterStatus(StatusPedidoDto statusPedido)
+        {
+            var statusPedidoDto = await PedidoService.ObterStatus(statusPedido);
+
+            return statusPedidoDto;
+        }
+
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<PedidoDto>> Adicionar([FromBody] PedidoDto pedido)
         {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            await PedidoService.Adicionar(pedido);
+
+            return Created("Adicionar", pedido);
         }
 
-        // PUT api/<Pedido>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public async Task<ActionResult<PedidoDto>> Atualizar([FromBody] PedidoDto pedido)
         {
+            if (pedido.Pedido == 0)
+            {
+                AdicionarmensagemErro("O id informado é inválido");
+                return CustomResponse(pedido);
+            }
+
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            await PedidoService.Atualizar(pedido);
+
+            return CustomResponse(pedido);
         }
 
-        // DELETE api/<Pedido>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<PedidoDto>> Excluir(int id)
         {
+            var pedido = await PedidoService.ObterPorId(id);
+
+            if (pedido == null)
+            {
+                return NotFound();
+            }
+
+            await PedidoService.Remover(id);
+            return CustomResponse(pedido);
         }
     }
 }

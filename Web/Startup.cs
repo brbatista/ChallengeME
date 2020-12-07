@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Builder;
+using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,7 @@ namespace Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApiDbContext>(options => options.UseInMemoryDatabase(databaseName: "ME"));
+            services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
         }
 

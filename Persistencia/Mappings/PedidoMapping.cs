@@ -15,6 +15,7 @@ namespace Persistencia.Mappings
 
             builder.HasMany(f => f.Itens)
                 .WithOne(p => p.Pedido)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasForeignKey(p => p.IdPedido);
 
             builder.ToTable("Pedido");
