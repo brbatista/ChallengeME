@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dados.Models
+namespace Negocio.Models
 {
     public class Item : Entidade
     {

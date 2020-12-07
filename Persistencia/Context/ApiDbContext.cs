@@ -1,10 +1,10 @@
-﻿using Dados.Models;
+﻿using Negocio.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dados.Context
+namespace Persistencia.Context
 {
     public class ApiDbContext : DbContext
     {

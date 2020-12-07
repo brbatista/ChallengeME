@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dados.Models
+namespace Negocio.Models
 {
     public class Pedido : Entidade
     {
-        public List<Item> Itens { get; set; }
+        public Pedido()
+        {
+            Itens = new List<Item>();
+        }
+        public IEnumerable<Item> Itens { get; set; }
     }
 }
