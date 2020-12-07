@@ -32,6 +32,14 @@ namespace Web.Controllers
             return Ok(pedidoDto);
         }
 
+        [HttpGet("listar")]
+        public async Task<ActionResult<List<PedidoDto>>> ObterTodos()
+        {
+            var pedidos = await PedidoService.ObterTodos();
+
+            return Ok(pedidos);
+        }
+
         [HttpPost("status")]
         public async Task<ActionResult<StatusResponseDto>> ObterStatus(StatusPedidoDto statusPedido)
         {
@@ -40,7 +48,7 @@ namespace Web.Controllers
             return statusPedidoDto;
         }
 
-        [HttpPost]
+        [HttpPost("adicionar")]
         public async Task<ActionResult<PedidoDto>> Adicionar([FromBody] PedidoDto pedido)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -50,7 +58,7 @@ namespace Web.Controllers
             return Created("Adicionar", pedido);
         }
 
-        [HttpPut]
+        [HttpPut("atualizar")]
         public async Task<ActionResult<PedidoDto>> Atualizar([FromBody] PedidoDto pedido)
         {
             if (pedido.Pedido == 0)
@@ -66,7 +74,7 @@ namespace Web.Controllers
             return CustomResponse(pedido);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("excluir/{id}")]
         public async Task<ActionResult<PedidoDto>> Excluir(int id)
         {
             var pedido = await PedidoService.ObterPorId(id);

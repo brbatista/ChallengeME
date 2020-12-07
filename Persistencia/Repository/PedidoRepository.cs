@@ -18,6 +18,11 @@ namespace Persistencia.Repository
         {
             return await DbSet.Include(p => p.Itens).FirstOrDefaultAsync(p => p.Id == id);
         }
+
+        public override async Task<List<Pedido>> ObterTodos()
+        {
+            return await DbSet.Include(p=> p.Itens).ToListAsync();
+        }
     }
 }
 

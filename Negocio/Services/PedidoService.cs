@@ -27,7 +27,10 @@ namespace Negocio.Services
 
         public async Task Adicionar(PedidoDto pedido)
         {
-            var pedidoEntity = Mapper.Map<Pedido>(pedido);
+            var itens = Mapper.Map<List<Item>>(pedido.Itens);
+
+            var pedidoEntity = new Pedido { Itens = itens };
+
             await PedidoRepository.Adicionar(pedidoEntity);
         }
 
@@ -43,6 +46,15 @@ namespace Negocio.Services
             var pedidoDto = Mapper.Map<PedidoDto>(pedido);
 
             return pedidoDto;
+        }
+
+        public async Task<List<PedidoDto>> ObterTodos()
+        {
+            var pedidos = await PedidoRepository.ObterTodos();
+
+            var dtos = Mapper.Map<List<PedidoDto>>(pedidos);
+
+            return dtos;
         }
 
         public async Task<StatusResponseDto> ObterStatus(StatusPedidoDto statusPedido)

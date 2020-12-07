@@ -1,5 +1,6 @@
 ﻿using Negocio.DTOs;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Negocio.Contratos
@@ -10,6 +11,7 @@ namespace Negocio.Contratos
         Task Atualizar(PedidoDto pedido);
         Task Remover(int id);
         Task<PedidoDto> ObterPorId(int id);
+        Task<List<PedidoDto>> ObterTodos();
         Task<StatusResponseDto> ObterStatus(StatusPedidoDto statusPedido);
     }
 }
