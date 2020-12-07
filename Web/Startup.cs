@@ -25,6 +25,12 @@ namespace Web
             services.AddDbContext<ApiDbContext>(options => options.UseInMemoryDatabase(databaseName: "ME"));
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Challenge ME", Version = "v1"});
+            });
+
             services.ResolveDependencies();
         }
 
@@ -45,6 +51,11 @@ namespace Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Challenge ME v1");
             });
         }
     }
